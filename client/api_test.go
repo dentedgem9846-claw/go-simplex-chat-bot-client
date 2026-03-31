@@ -36,9 +36,9 @@ func setupTestClient(t *testing.T, handler func(ws *websocket.Conn, msg sxtypes.
 	}))
 
 	wsURL := "ws" + strings.TrimPrefix(server.URL, "http")
-	ctx := context.Background()
-	c := New(ctx, wsURL, &Options{Timeout: 5 * time.Second})
+	c := New(wsURL, WithOperationTimeout(5*time.Second))
 
+	ctx := context.Background()
 	if err := c.Connect(ctx); err != nil {
 		t.Fatalf("connect failed: %v", err)
 	}
